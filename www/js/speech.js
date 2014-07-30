@@ -10,18 +10,18 @@ recognize: function(){
             alert(results);
             redirect(result);
             
-            if (result.match("continue") == "continue" || result.match("more")=="more" or result.match("go on") == "go on")
+            if (result.indexOf("continue") > -1 || result.indexOf("more") > -1 ||  result.indexOf("go on") > -1)
             {
 				handler.setContinuePlaying(true);
-			}
-			else if (result.match("stop") == "stop" || result.match("enough") == "enough" || result.match("pause") == "pause")
-			{
+		}
+		else if (result.indexOf("stop") > -1 || result.indexOf("enough") > -1 || result.indexOf("pause") > -1)
+		{
 				handler.setContinuePlaying(false);
-			}
-			else
-			{
-				handler.load(result);
-			} 
+		}
+		else
+		{
+			handler.load(result);
+		} 
         }
     
         function failCallback(error){
@@ -46,4 +46,5 @@ function redirect(result){
     else if(result.indexOf("home") > -1){
         roseApp.showView('welcome');
     }
+ 
 }
