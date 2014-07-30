@@ -9,8 +9,8 @@ recognize: function(){
             result = result.substring(2, result.length - 2);
             alert(results);
             redirect(result);
-            handler.load(result);
-            /*if (result.match("continue") == "continue" || result.match("more")=="more" or result.match("go on") == "go on")
+/*            
+            if (result.match("continue") == "continue" || result.match("more")=="more" or result.match("go on") == "go on")
             {
 				handler.setContinuePlaying(true);
 			}
