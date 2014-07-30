@@ -15,14 +15,13 @@ function play_audio(doc, audio)
 	{
 		for (var i=0; i<audio.length; i++)
 		{
-			if (continue_playing == true) 
-			{
+			if (continue_playing == false) 
+				return;
 				
-				doc.src = audio_array[i];
-				var duration = audio_array[i].duration;
-				doc.play();
-				setTimeout(function(){alert("Continue or enough?");},duration);
-			}
+			doc.src = audio_array[i];
+			var duration = audio_array[i].duration;
+			doc.play();
+			setTimeout(function(){alert("Continue or enough?");},duration);
 		}
 	}
 }
