@@ -9,27 +9,30 @@ recognize: function(){
             result = result.substring(2, result.length - 2);
             alert(results);
             redirect(result);
-/*            
-            if (result.match("continue") == "continue" || result.match("more")=="more" or result.match("go on") == "go on")
+
+            
+            if (result.indexOf("continue") > -1 || result.indexOf("more") > -1 ||  result.indexOf("go on") > -1)
             {
 				handler.setContinuePlaying(true);
-			}
-			else if (result.match("stop") == "stop" || result.match("enough") == "enough" || result.match("pause") == "pause")
-			{
+    		}
+	       	else if (result.indexOf("stop") > -1 || result.indexOf("enough") > -1 || result.indexOf("pause") > -1)
+		    {
 				handler.setContinuePlaying(false);
 			}
 			else
 			{
 				handler.load(result);
-			} */
-        }
+			} 
+		}
+
+
     
         function failCallback(error){
             alert("Could you please try again?  I didn't catch that.");
             console.log("Error: " + error);
         }
-    }
 }
+
 function redirect(result){
     result = result.toLowerCase();
     if((result.indexOf("blue white") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
@@ -49,4 +52,5 @@ function redirect(result){
     else if(result.indexOf("help") > -1){
         roseApp.showView('help');
     }
+ 
 }
