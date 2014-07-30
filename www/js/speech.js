@@ -9,7 +9,18 @@ recognize: function(){
             result = result.substring(2, result.length - 2);
             alert(results);
             redirect(result);
-            handler.load(result);
+            if (result.match("continue") == "continue" || result.match("more")=="more" or result.match("go on") == "go on")
+            {
+				handler.setContinuePlaying(true);
+			}
+			else if (result.match("stop") == "stop" || result.match("enough") == "enough" || result.match("pause") == "pause")
+			{
+				handler.setContinuePlaying(false);
+			}
+			else
+			{
+				handler.load(result);
+			}
             window.open(url);
         }
     
