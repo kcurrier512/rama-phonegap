@@ -7,8 +7,6 @@ function hideDivs(){
 	});
 }
 
-
-
 function showDiv(div_to_show)
 {
 	document.getElementById(div_to_show+"_categories").style.display = "block";
@@ -18,12 +16,8 @@ function piece() {
 	this.piece_basics = {title:"", year:"", artist:"", dimensions:"", image:""};
     this.categories = ["about the artist", "about the piece"];
     this.artist_details = {audio_on_load:"", biography:"", career:""};
-    this.piece_details = {audio_on_load:"", medium:"", style:"", summary:""}; 
+    this.piece_details = {audio_on_load:"", medium:"", style:""}; 
 }
-function reload(){
-	current_piece = "";
-}
-//{categories: ["about the artist", "about the piece"], piece_basics: {title:"Blue-White", year:1960, artist:"Lichtenstein"}, piece_details:{audio_on_load:"hi.wav", medium:"oil", style:"modenist", summary:"yeah"},artist_details:{audio_on_load:"hi.wav",biography:"life.wav", career:"life.wav"}
 
 var current_piece = new piece();
 
@@ -56,7 +50,7 @@ load: function(result)
 						if (result.search(name) > -1)
 						{
 							new_name = name.replace(" ", "");
-							document.getElementById("current_painting").src = '../img/forgetIt';
+							document.getElementById("current_painting").src = piece.picture;
 							document.getElementById("current_title").innerHTML = name;
 							//change div back to original_categories
 							hideDivs();
@@ -119,8 +113,8 @@ load: function(result)
 						}
 					}
 				}		
-			});					
-		}
-	
+			}
+		);					
+	}	
 
 }
