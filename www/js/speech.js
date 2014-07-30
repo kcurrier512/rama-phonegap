@@ -7,7 +7,7 @@ recognize: function(){
         function successCallback(results){
             var result = JSON.stringify(results)
             result = result.substring(2, result.length - 2);
-            alert(results);
+            alert(result);
             redirect(result);
 		}
 
@@ -17,7 +17,8 @@ recognize: function(){
             alert("Could you please try again?  I didn't catch that.");
             console.log("Error: " + error);
         }
-}
+    }
+};
 
 function redirect(result){
     result = result.toLowerCase();
