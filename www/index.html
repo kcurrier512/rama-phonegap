@@ -155,7 +155,6 @@
 	<!-- Triggered when gallery	screen is automatically loaded ... Hides when other pages load -->
 	<div id="gallery-view" class="view">
 <table align="center">
-	<button onclick="handler.reload()">please</button>
 			<tr>
 				<td>
 					<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
@@ -171,38 +170,33 @@
 						</div>
 					</a>
 				</td>
-				<td>
-					<a onclick="roseApp.showView('Painting')">
-					<div class="square"></div>
-					</a>
-				</td>
 			</tr>
 		</table>		
 	</div>
 
 	<!-- Triggered when tester screen is automatically loaded ... Hides when other pages load -->
 	<div id="Painting-view" class="view">
-   
-		<!-- STEVEN'S STUFF-->
-		
+
 <!-- ARI'S GALLERY WHICH AT THE MOMENT LOOKS TERRIBLE.
 
-<div align="center" id='mySwipe' style='max-width:500px;margin:0 auto' class='swipe'>
-			  <div class='swipe-wrap'>
-			    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
-			    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
-			    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
-			    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
-			    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
-			  </div>
-			</div>
+		<div align="center" id='mySwipe' style='max-width:500px;margin:0 auto' class='swipe'>
+		  <div class='swipe-wrap'>
+		    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
+		    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
+		    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
+		    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
+		    <div><img width="300px" height="300px" src="img/1.gif"></img></div>
+		  </div>
+		</div>
 -->
 
 <br/>
 	<!-- ARI TOSSED ALL OF STEVEN'S STUFF INTO A CENTERED DIV -->
 	<div align="center">
 
-		<div width="300px" height="300px" class="square"><img src="" id="current_painting"/></div>
+		<div><img src="" width="100" height="100"id="current_painting"/></div>
+
+		<span id="current_title"></span>
 		
     <audio id="audio-player" src="" controls>
   Your browser does not support this audio format.
@@ -212,8 +206,6 @@
 <!-- Chatbox here. -->
 
 <div style="background-color:white;width:80%;height:300px;opacity:.7;color:black;">
-
-		<span id="current_title"></span>
 
 		<span id="original_categories" style="display:none;">
 			
@@ -230,7 +222,6 @@
 			<div class="back" onclick="hideDivs(); showDiv('original');">Back</div>
 			<div onclick="handler.load('style');">Style</div>
 			<div onclick="handler.load('medium');">Medium</div>
-			<div onclick="handler.load('summary');">Summary</div>
 		</span>		
 		<!-- /STEVEN'S STUFF-->
 
@@ -281,6 +272,10 @@
 	</div>
 	<!-- /content -->
 
+	<div id="help-view" class="view">
+		<h1 align="center">HOW TO USE RAMA</h1>
+		The Rose Art Museum App
+	</div>
 
 
 
@@ -349,7 +344,7 @@ window.mySwipe = Swipe(elem, {
 
 // with jQuery
 // window.mySwipe = $('#mySwipe').Swipe().data('Swipe');
-
 </script>
+
 
 </html>
