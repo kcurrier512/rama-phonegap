@@ -71,7 +71,7 @@ load: function(result)
 								showDiv("artist");
 								document.getElementById("audio-player").play();
 							}
-							if (result.match(category) == "about the piece") {
+							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
 								document.getElementById("audio-player").src = current_piece.piece_details.audio_on_load;
 								showDiv("piece");
 								document.getElementById("audio-player").play();

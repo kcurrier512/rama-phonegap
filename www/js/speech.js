@@ -46,4 +46,7 @@ function redirect(result){
     else if(result.indexOf("home") > -1){
         roseApp.showView('welcome');
     }
+    else if(result.indexOf("help") > -1){
+        roseApp.showView('help');
+    }
 }
