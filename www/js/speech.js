@@ -9,20 +9,6 @@ recognize: function(){
             result = result.substring(2, result.length - 2);
             alert(results);
             redirect(result);
-
-            
-            if (result.indexOf("continue") > -1 || result.indexOf("more") > -1 ||  result.indexOf("go on") > -1)
-            {
-				handler.setContinuePlaying(true);
-    		}
-	       	else if (result.indexOf("stop") > -1 || result.indexOf("enough") > -1 || result.indexOf("pause") > -1)
-		    {
-				handler.setContinuePlaying(false);
-			}
-			else
-			{
-				handler.load(result);
-			} 
 		}
 
 
@@ -52,5 +38,14 @@ function redirect(result){
     else if(result.indexOf("help") > -1){
         roseApp.showView('help');
     }
+    else if ((result.indexOf("continue") > -1) || (result.indexOf("more") > -1) ||  (result.indexOf("go on") > -1)){
+        handler.setContinuePlaying(true);
+    }
+    else if ((result.indexOf("stop") > -1) || (result.indexOf("enough") > -1) || (result.indexOf("pause") > -1)){
+        handler.setContinuePlaying(false);
+    }
+    else{
+        handler.load(result);
+    } 
  
 }
