@@ -1,32 +1,4 @@
 
-var continue_playing = true;
-
-function play_audio(doc, audio)
-{
-	alert(audio);
-	audio_array = audio.split(',');
-	if (audio_array.length == 1)
-	{
-		doc.src = audio_array[0];
-		doc.play();
-	}  
-	else  
-	{
-		for (int i=0; i<audio.length; i++)
-		{
-			if (continue_playing == true) 
-			{
-				
-				doc.src = audio_array[i];
-				var duration = audio_array[i].duration;
-				doc.play();
-				setTimeout(function(){alert("Continue or enough?");},duration);
-			}
-		}
-	}
-}
-
-
 function hideDivs(){
 	var string = "_categories";
 	var array = ["original", "artist", "piece"];
@@ -53,12 +25,7 @@ var current_piece = new piece();
 
 var handler = {
 
-setContinuePlaying:  function(boolvalue)
-{
-	continue_playing = boolvalue;
-	if (continue_playing == false)
-		document.getElementById("audio-player").pause();
-} 
+
 
 load: function(result)
 {
@@ -92,8 +59,6 @@ load: function(result)
 						}
 					});
 				}
-				audio-player = document.getElementById("audio-player");
-				
 				if (document.getElementById("original_categories").style.display != "none")
 				{
 					current_piece.categories.forEach(function(category) {
@@ -102,12 +67,15 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(audio-player, current_piece.artist_details.audio_on_load)
+								document.getElementById("audio-player").src = current_piece.artist_details.audio_on_load;
 								showDiv("artist");
+								document.getElementById("audio-player").play();
 							}
-							else if (result.match(category) == "about the piece") {
-								play_audio(audio-player, current_piece.piece_details.audio_on_load);
+							if (result.match(category) == "about the piece") {
+								document.getElementById("audio-player").src = current_piece.piece_details.audio_on_load;
 								showDiv("piece");
+								document.getElementById("audio-player").play();
+
 							}
 						}
 					});
@@ -118,11 +86,12 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{							
 							if (result.match(prop) == "biography"){
-								play_audio(audio-player, current_piece.artist_details.biography);
-
+								document.getElementById("audio-player").src = current_piece.artist_details.biography;
+								document.getElementById("audio-player").play();
 							}
-							else if (result.match(prop) == "career") {
-								play_audio(audio-player, current_piece.artist_details.career);
+							if (result.match(prop) == "career") {
+								document.getElementById("audio-player").src = current_piece.artist_details.career;
+								document.getElementById("audio-player").play();
 							}
 						}
 					}
@@ -134,10 +103,12 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{
 							if (result.match(prop) == "style"){
-								play_audio(audio-player, current_piece.piece_details.style);
+								document.getElementById("audio-player").src = current_piece.piece_details.style;
+								document.getElementById("audio-player").play();
 							}
-							else if (result.match(prop) == "medium") {
-								play_audio(audio-player, current_piece.piece_details.medium);
+							if (result.match(prop) == "medium") {
+								document.getElementById("audio-player").src = current_piece.piece_details.medium;
+								document.getElementById("audio-player").play();
 							}						
 						}
 					}

@@ -9,7 +9,8 @@ recognize: function(){
             result = result.substring(2, result.length - 2);
             alert(results);
             redirect(result);
-            if (result.match("continue") == "continue" || result.match("more")=="more" or result.match("go on") == "go on")
+            handler.load(result);
+            /*if (result.match("continue") == "continue" || result.match("more")=="more" or result.match("go on") == "go on")
             {
 				handler.setContinuePlaying(true);
 			}
@@ -20,8 +21,7 @@ recognize: function(){
 			else
 			{
 				handler.load(result);
-			}
-            window.open(url);
+			} */
         }
     
         function failCallback(error){
@@ -31,11 +31,12 @@ recognize: function(){
     }
 }
 function redirect(result){
-    if((result.indexOf("blue white") > -1) || (result.indexOf("Kelly") > -1) || (result.indexOf("blue/white") > -1)){
+    result = result.toLowerCase();
+    if((result.indexOf("blue white") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
         handler.load('Blue White');
         roseApp.showView('Painting');
     }
-    else if((result.indexOf("forget") > -1) || (result.indexOf("Lictenstein") > -1) || (result.indexOf("Liechtenstein") > -1)){
+    else if((result.indexOf("forget") > -1) || (result.indexOf("lichtenstein") > -1) || (result.indexOf("liechtenstein") > -1)){
         handler.load('Forget it! Forget me!');
         roseApp.showView('Painting');
     }
