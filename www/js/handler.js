@@ -12,7 +12,7 @@ function play_audio(doc, audio)
 	}  
 	else  
 	{
-		for (int i=0; i<audio.length; i++)
+		for (var i=0; i<audio.length; i++)
 		{
 			if (continue_playing == true) 
 			{
@@ -64,7 +64,7 @@ setContinuePlaying:  function(boolvalue)
 	continue_playing = boolvalue;
 	if (continue_playing == false)
 		document.getElementById("audio-player").pause();
-} 
+}, 
 
 load: function(result)
 {
@@ -98,7 +98,7 @@ load: function(result)
 						}
 					});
 				}
-				audio-player = document.getElementById("audio-player");
+				audio_player = document.getElementById("audio-player");
 				
 				if (document.getElementById("original_categories").style.display != "none")
 				{
@@ -108,11 +108,11 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(audio-player, current_piece.artist_details.audio_on_load)
+								play_audio(audio_player, current_piece.artist_details.audio_on_load)
 								showDiv("artist");
 							}
 							else if (result.match(category) == "about the piece") {
-								play_audio(audio-player, current_piece.piece_details.audio_on_load);
+								play_audio(audio_player, current_piece.piece_details.audio_on_load);
 								showDiv("piece");
 							}
 						}
@@ -124,11 +124,11 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{							
 							if (result.match(prop) == "biography"){
-								play_audio(audio-player, current_piece.artist_details.biography);
+								play_audio(audio_player, current_piece.artist_details.biography);
 
 							}
 							else if (result.match(prop) == "career") {
-								play_audio(audio-player, current_piece.artist_details.career);
+								play_audio(audio_player, current_piece.artist_details.career);
 							}
 						}
 					}
@@ -140,10 +140,10 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{
 							if (result.match(prop) == "style"){
-								play_audio(audio-player, current_piece.piece_details.style);
+								play_audio(audio_player, current_piece.piece_details.style);
 							}
 							else if (result.match(prop) == "medium") {
-								play_audio(audio-player, current_piece.piece_details.medium);
+								play_audio(audio_player, current_piece.piece_details.medium);
 							}						
 						}
 					}
