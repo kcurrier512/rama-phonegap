@@ -1,4 +1,5 @@
 
+var played = false;
 
 var continue_playing = true;
 
@@ -42,6 +43,7 @@ function play_audio(url) {
 
     // Play audio
     my_media.play();
+    played = true;
 }
 
 
@@ -88,7 +90,6 @@ setContinuePlaying:  function(boolvalue)
 
 load: function(result)
 {
-            result = result.toLowerCase();
             var pieces = [];
             serverURL = "http://leiner.cs-i.brandeis.edu:9000";
 			
@@ -121,8 +122,6 @@ load: function(result)
 				 //document.getElementById("audio-player");
 				
 
-				if (document.getElementById("original_categories").style.display != "none")
-				{
 					current_piece.categories.forEach(function(category) {
 						category = category.toLowerCase();
 						if (result.search(category) > -1)
@@ -138,9 +137,8 @@ load: function(result)
 							}
 						}
 					});
-				}
-				else if (document.getElementById("artist_categories").style.display != "none")
-				{
+				
+
 					for (prop in current_piece.artist_details) {
 						if (result.search(prop) > -1)
 						{							
@@ -152,10 +150,7 @@ load: function(result)
 							}
 						}
 					}
-				}
-				else if (document.getElementById("piece_categories").style.display != "none")
-				{
-				
+
 					for (prop in current_piece.piece_details) {
 						if (result.search(prop) > -1)
 						{
@@ -167,7 +162,10 @@ load: function(result)
 							}						
 						}
 					}
-				}		
+				if(!played && result.indexOf("~") > -1){
+					alert("Sorry, I don't understand")
+				}
+				played = false;
 			});					
 	}	
 
