@@ -4,13 +4,11 @@ var continue_playing = true;
 
 function play_audio(doc, audio)
 {
-	alert(audio);
 	audio_array = audio.split(',');
 	if (audio_array.length == 1)
 	{
 		doc.src = audio_array[0];
-		doc.play();
-	}  
+	}
 	else  
 	{
 		for (var i=0; i<audio.length; i++)
