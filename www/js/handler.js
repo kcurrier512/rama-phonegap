@@ -5,6 +5,42 @@ var continue_playing = true;
 
 var my_media = null;
 
+
+function ended(my_media, duration)
+{
+	//returns when clip is over
+	
+	// Update media position every second
+	var mediaTimer = setInterval(function () {
+    	// get media position
+    		my_media.getCurrentPosition(
+        // success callback
+		 function (position) {
+            		if (position >= duration) {
+                		return position;
+            		}
+        	},
+        	// error callback
+		 function (e) {
+            		console.log("Error getting pos=" + e);
+        	}
+    		);
+	}, 1000);
+}
+
+function getDuration(my_media)
+{
+    var counter = 0;
+    var timerDur = setInterval(function() {
+    counter = counter + 100;
+    var dur = my_media.getDuration();
+    if (dur > 0) {
+        clearInterval(timerDur);
+        return dur;
+    }
+    }, 100);	
+}
+
 /*function play_audio(doc, audio)
 {
 	audio_array = audio.split(',');
@@ -30,8 +66,11 @@ var my_media = null;
 
 
 function play_audio(url) {
+   url_array = url.split(',');
+   if (url_array.length==1)
+   {
     // Play the audio file at url
-    my_media = new Media(url,
+    my_media = new Media(url_array[0],
         // success callback
         function() {
             console.log("playAudio():Audio Success");
@@ -44,6 +83,42 @@ function play_audio(url) {
     // Play audio
     my_media.play();
     played = true;
+   }
+   else
+   {
+   	for (var i=0; i<url_array.length; i++)
+   	{
+   		if (continue_playing == false)
+   		{
+   			alert('continue playing is false');
+   			return;
+   		}
+   			
+   			
+   		my_media = new Media(url_array[i],
+        	// success callback
+		   function() {
+            		console.log("playAudio():Audio Success");
+        		},
+		  // error callback
+		  function(err) {
+        		 console.log("playAudio():Audio Error: "+err);
+    			});
+
+    		// Play audio
+		 my_media.play();
+		 played = true;
+   			
+   		 var duration = getDuration(my_media);
+   		 alert(duration);
+   		 
+   		 var position = ended(my_media, duration);
+   		 alert(position);
+   		 
+   		 
+   		 
+	}
+   }
 }
 
 
