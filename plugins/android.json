@@ -9,11 +9,19 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.manueldeveloper.SpeechRecognizer\" /></feature>",
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.manueldeveloper.SpeechRecognizer\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -46,6 +54,24 @@
                         },
                         {
                             "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
                         }
                     ]
@@ -536,12 +562,19 @@
         }
     },
     "installed_plugins": {
-        "com.manueldeveloper.speech-recognizer": {
+        "com.phonegap.plugins.barcodescanner": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
-        "com.phonegap.plugins.barcodescanner": {
+        "org.apache.cordova.media": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.manueldeveloper.speech-recognizer": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        }
+    }
 }

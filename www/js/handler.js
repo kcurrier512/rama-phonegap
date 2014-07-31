@@ -2,7 +2,9 @@
 
 var continue_playing = true;
 
-function play_audio(doc, audio)
+var my_media = null;
+
+/*function play_audio(doc, audio)
 {
 	audio_array = audio.split(',');
 	if (audio_array.length == 1)
@@ -22,8 +24,33 @@ function play_audio(doc, audio)
 			setTimeout(function(){alert("Continue or enough?");},duration);
 		}
 	}
+}*/
+
+
+
+function play_audio(url) {
+    // Play the audio file at url
+    my_media = new Media(url,
+        // success callback
+        function() {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function(err) {
+            console.log("playAudio():Audio Error: "+err);
+    });
+
+    // Play audio
+    my_media.play();
 }
 
+
+function pause_audio(){
+	my_media.pause();
+}
+function resume_audio(){
+	my_media.play();
+}
 
 function hideDivs(){
 	var string = "_categories";
@@ -91,7 +118,7 @@ load: function(result)
 						}
 					});
 				}
-				audio_player = document.getElementById("audio-player");
+				 //document.getElementById("audio-player");
 				
 
 				if (document.getElementById("original_categories").style.display != "none")
@@ -102,11 +129,11 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(audio_player, current_piece.artist_details.audio_on_load)
+								play_audio(current_piece.artist_details.audio_on_load)
 								showDiv("artist");
 							}
 							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
-								play_audio(audio_player, current_piece.piece_details.audio_on_load);
+								play_audio(current_piece.piece_details.audio_on_load);
 								showDiv("piece");
 							}
 						}
@@ -118,10 +145,10 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{							
 							if (result.match(prop) == "biography"){
-								play_audio(audio_player, current_piece.artist_details.biography);
+								play_audio(current_piece.artist_details.biography);
 							}
 							else if (result.match(prop) == "career") {
-								play_audio(audio_player, current_piece.artist_details.career);
+								play_audio(current_piece.artist_details.career);
 							}
 						}
 					}
@@ -133,10 +160,10 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{
 							if (result.match(prop) == "style"){
-								play_audio(audio_player, current_piece.piece_details.style);
+								play_audio(current_piece.piece_details.style);
 							}
 							else if (result.match(prop) == "medium") {
-								play_audio(audio_player, current_piece.piece_details.medium);
+								play_audio(current_piece.piece_details.medium);
 							}						
 						}
 					}
