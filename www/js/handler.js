@@ -27,9 +27,15 @@ var my_media = null;
 	}
 }*/
 
+function info(){
+	alert(window.location.hash);
+	alert(location.hash);
+	if (window.location.hash == "#welcome"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/welcome.wav")
+	}
+}
 
-
-function play_audio(url) {
+function play_audio(ifPlayed, url) {
     // Play the audio file at url
     my_media = new Media(url,
         // success callback
@@ -43,7 +49,7 @@ function play_audio(url) {
 
     // Play audio
     my_media.play();
-    played = true;
+    played = ifPlayed;
 }
 
 
@@ -111,7 +117,7 @@ load: function(result)
 						{
 							new_name = name.replace(" ", "");
 							document.getElementById("current_painting").src = piece.picture;
-							document.getElementById("current_title").innerHTML = name;
+							document.getElementById("current_title").innerHTML = toTitleCase(name);
 							//change div back to original_categories
 							hideDivs();
 							showDiv("original");
@@ -128,11 +134,11 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(current_piece.artist_details.audio_on_load)
+								play_audio(true, current_piece.artist_details.audio_on_load)
 								showDiv("artist");
 							}
 							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
-								play_audio(current_piece.piece_details.audio_on_load);
+								play_audio(true, current_piece.piece_details.audio_on_load);
 								showDiv("piece");
 							}
 						}
@@ -143,10 +149,10 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{							
 							if (result.match(prop) == "biography"){
-								play_audio(current_piece.artist_details.biography);
+								play_audio(true, current_piece.artist_details.biography);
 							}
 							else if (result.match(prop) == "career") {
-								play_audio(current_piece.artist_details.career);
+								play_audio(true, current_piece.artist_details.career);
 							}
 						}
 					}
@@ -155,15 +161,15 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{
 							if (result.match(prop) == "style"){
-								play_audio(current_piece.piece_details.style);
+								play_audio(true, current_piece.piece_details.style);
 							}
 							else if (result.match(prop) == "medium") {
-								play_audio(current_piece.piece_details.medium);
+								play_audio(true, current_piece.piece_details.medium);
 							}						
 						}
 					}
 				if(!played && result.indexOf("~") > -1){
-					alert("Sorry, I don't understand")
+					play_audio(true, "https://s3.amazonaws.com/RamaAudio/sorry.wav");
 				}
 				played = false;
 			});					
