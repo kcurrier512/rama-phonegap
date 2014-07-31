@@ -15,15 +15,11 @@
                         },
                         {
                             "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.manueldeveloper.SpeechRecognizer\" /></feature>",
-=======
-                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
->>>>>>> 9df8ef0a79011edaa52bbf938f292ee862561e57
-                            "count": 1
-                        },
-                        {
+
                             "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
+
                         {
                             "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
                             "count": 1
