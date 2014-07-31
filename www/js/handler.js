@@ -4,87 +4,50 @@ var played = false;
 var continue_playing = true;
 
 var my_media = null;
+var duration = 0;
 
 
-function ended(my_media, duration)
-{
-	//returns when clip is over
-	
-	// Update media position every second
-	var mediaTimer = setInterval(function () {
-    	// get media position
-    		my_media.getCurrentPosition(
-        // success callback
-		 function (position) {
-            		if (position >= duration) {
-                		return position;
-            		}
-        	},
-        	// error callback
-		 function (e) {
-            		console.log("Error getting pos=" + e);
-        	}
-    		);
-	}, 1000);
+function info(){
+	alert(window.location.hash);
+	alert(location.hash);
+	if (window.location.hash == "#welcome"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/welcome.wav")
+	}
+	if(window.location.hash == "#gallery"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/gallery.wav")
+	}
+	if(window.location.hash == "#Painting"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/piece.wav")
+	}
 }
 
-function getDuration(my_media)
-{
-    var counter = 0;
-    var timerDur = setInterval(function() {
-    counter = counter + 100;
-    var dur = my_media.getDuration();
-    if (dur > 0) {
-        clearInterval(timerDur);
-        return dur;
-    }
-    }, 100);	
-}
-
-/*function play_audio(doc, audio)
-{
-	audio_array = audio.split(',');
-	if (audio_array.length == 1)
-	{
-		doc.src = audio_array[0];
-	}
-	else  
-	{
-		for (var i=0; i<audio.length; i++)
-		{
-			if (continue_playing == false) 
-				return;
-				
-			doc.src = audio_array[i];
-			var duration = audio_array[i].duration;
-			doc.play();
-			setTimeout(function(){alert("Continue or enough?");},duration);
-		}
-	}
-}*/
 
 
 
-function play_audio(url) {
+
+
+
+function play_audio(ifPlayed, url) {
    url_array = url.split(',');
    if (url_array.length==1)
    {
+
     // Play the audio file at url
     my_media = new Media(url_array[0],
         // success callback
         function() {
-            console.log("playAudio():Audio Success");
+            alert("playAudio():Audio Success");
         },
         // error callback
         function(err) {
-            console.log("playAudio():Audio Error: "+err);
+            alert("playAudio():Audio Error: "+err);
     });
 
     // Play audio
     my_media.play();
-    played = true;
+    played = ifPlayed;
    }
-   else
+   else if (url_array.length > 1)
    {
    	for (var i=0; i<url_array.length; i++)
    	{
@@ -107,14 +70,25 @@ function play_audio(url) {
 
     		// Play audio
 		 my_media.play();
-		 played = true;
+		 played = ifPlayed;
    			
-   		 var duration = getDuration(my_media);
-   		 alert(duration);
-   		 
-   		 var position = ended(my_media, duration);
-   		 alert(position);
-   		 
+		 
+       var counter = 0;
+       var duration = 0;
+    var timerDur = setInterval(function() {
+        counter = counter + 100;
+        if (counter > 2000) {
+            clearInterval(timerDur);
+        }
+        var dur = my_media.getDuration();
+        if (dur > 0) {
+            clearInterval(timerDur);
+            duration = dur;
+            //return;
+        }
+   }, 100);
+	alert(duration+"d"):
+
    		 
    		 
 	}
@@ -186,7 +160,7 @@ load: function(result)
 						{
 							new_name = name.replace(" ", "");
 							document.getElementById("current_painting").src = piece.picture;
-							document.getElementById("current_title").innerHTML = name;
+							document.getElementById("current_title").innerHTML = toTitleCase(name);
 							//change div back to original_categories
 							hideDivs();
 							showDiv("original");
@@ -203,11 +177,11 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(current_piece.artist_details.audio_on_load)
+								play_audio(true, current_piece.artist_details.audio_on_load)
 								showDiv("artist");
 							}
 							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
-								play_audio(current_piece.piece_details.audio_on_load);
+								play_audio(true, current_piece.piece_details.audio_on_load);
 								showDiv("piece");
 							}
 						}
@@ -218,10 +192,10 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{							
 							if (result.match(prop) == "biography"){
-								play_audio(current_piece.artist_details.biography);
+								play_audio(true, current_piece.artist_details.biography);
 							}
 							else if (result.match(prop) == "career") {
-								play_audio(current_piece.artist_details.career);
+								play_audio(true, current_piece.artist_details.career);
 							}
 						}
 					}
@@ -230,15 +204,15 @@ load: function(result)
 						if (result.search(prop) > -1)
 						{
 							if (result.match(prop) == "style"){
-								play_audio(current_piece.piece_details.style);
+								play_audio(true, current_piece.piece_details.style);
 							}
 							else if (result.match(prop) == "medium") {
-								play_audio(current_piece.piece_details.medium);
+								play_audio(true, current_piece.piece_details.medium);
 							}						
 						}
 					}
 				if(!played && result.indexOf("~") > -1){
-					alert("Sorry, I don't understand")
+					play_audio(true, "https://s3.amazonaws.com/RamaAudio/sorry.wav");
 				}
 				played = false;
 			});					
