@@ -33,6 +33,12 @@ function info(){
 	if (window.location.hash == "#welcome"){
 		play_audio(false, "https://s3.amazonaws.com/RamaAudio/welcome.wav")
 	}
+	if(window.location.hash == "#gallery"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/gallery.wav")
+	}
+	if(window.location.hash == "#Painting"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/piece.wav")
+	}
 }
 
 function play_audio(ifPlayed, url) {
