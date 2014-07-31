@@ -22,6 +22,19 @@ function info(){
 }
 
 
+function info(){
+	alert(window.location.hash);
+	alert(location.hash);
+	if (window.location.hash == "#welcome"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/welcome.wav")
+	}
+	if(window.location.hash == "#gallery"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/gallery.wav")
+	}
+	if(window.location.hash == "#Painting"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/piece.wav")
+	}
+}
 
 
 
@@ -46,6 +59,7 @@ function play_audio(ifPlayed, url) {
     // Play audio
     my_media.play();
     played = ifPlayed;
+
    }
    else if (url_array.length > 1)
    {
@@ -93,6 +107,7 @@ function play_audio(ifPlayed, url) {
    		 
 	}
    }
+
 }
 
 
