@@ -24,11 +24,11 @@ recognize: function(){
 function redirect(result){
     result = result.toLowerCase();
     if((result.indexOf("blue white") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
-        handler.load('Blue White');
+        handler.load('blue white');
         roseApp.showView('Painting');
     }
     else if((result.indexOf("forget") > -1) || (result.indexOf("lichtenstein") > -1) || (result.indexOf("liechtenstein") > -1)){
-        handler.load('Forget it! Forget me!');
+        handler.load('forget it! forget me!');
         roseApp.showView('Painting');
     }
     else if(result.indexOf("gallery") > -1){

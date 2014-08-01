@@ -66,6 +66,7 @@ function resume_audio(){
 	my_media.play();
 }
 
+
 function hideDivs(){
 	var string = "_categories";
 	var array = ["original", "artist", "piece"];
@@ -93,18 +94,17 @@ var current_piece = new piece();
 var handler = {
 
 
-setContinuePlaying:  function(boolvalue)
+/*setContinuePlaying:  function(boolvalue)
 {
 	continue_playing = boolvalue;
 	if (continue_playing == false)
 		document.getElementById("audio-player").pause();
-}, 
+}, */
 
 load: function(result)
 {
             var pieces = [];
             serverURL = "http://leiner.cs-i.brandeis.edu:9000";
-			
 
             //load database pieces into variable pieces
     		$.ajax({
@@ -124,10 +124,12 @@ load: function(result)
 							new_name = name.replace(" ", "");
 							document.getElementById("current_painting").src = piece.picture;
 							document.getElementById("current_title").innerHTML = toTitleCase(name);
+							getURL();
 							//change div back to original_categories
 							hideDivs();
 							showDiv("original");
 							current_piece = piece;
+
 						}
 					});
 				}
