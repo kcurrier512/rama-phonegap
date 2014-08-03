@@ -17,11 +17,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.manueldeveloper.SpeechRecognizer\" /></feature>",
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
+                            "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.manueldeveloper.SpeechRecognizer\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -565,10 +565,10 @@
         "org.apache.cordova.media": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
-        "com.manueldeveloper.speech-recognizer": {
+        "com.phonegap.plugins.barcodescanner": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
-        "com.phonegap.plugins.barcodescanner": {
+        "com.manueldeveloper.speech-recognizer": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },

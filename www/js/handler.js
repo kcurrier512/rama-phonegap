@@ -54,22 +54,23 @@ function play_audio(ifPlayed, url)
 	});
 	my_media.play();
 	played = ifPlayed;
-		
+
     var getDur = setTimeout(function() {
-	 
+
 		var duration = my_media.getDuration();	
 		if (duration <= 0) //error so exit
 			return;
 			
 		// Play audio
-		played = ifPlayed;
+
 
 	    var timerDur = setTimeout(function() {				
 			if (url_array.length==1)
 				return;
 			
 			my_media.stop();
-			my_media_2 = new Media("https://s3.amazonaws.com/RamaAudio/hearmore.wav",
+
+			my_media = new Media("https://s3.amazonaws.com/RamaAudio/hearmore.wav",
 				// success callback
 				function() {
 				// alert("playAudio():Audio Success");
@@ -78,8 +79,12 @@ function play_audio(ifPlayed, url)
 				function(err) {
 				// alert("playAudio():Audio Error: "+err);
 			});
+						
+			my_media.play(); //would you like to hear more?
 			
-			my_media_2.play();
+			var otherTimer = setTimeout(function () { //wait 1.5 secs and then record 
+					sp.recognize();
+			}, 2500);
 			
 			var newTimeDur = setTimeout(function () {
 				if (continue_playing == true)
@@ -87,9 +92,9 @@ function play_audio(ifPlayed, url)
 					url_array.shift();
 					play_audio(ifPlayed, url_array.toString());
 				}
-			}, 5000);  //give user a few seconds to respond
+			}, 2500);  //give user a few seconds to respond
 			
-		}, 1000*duration);
+		}, (1000*duration)-1000);
   
     }, 2750);	
 }
@@ -134,6 +139,12 @@ var handler = {
 setContinuePlaying:  function(boolvalue)
 {
 	continue_playing = boolvalue;
+	if (continue_playing == false) {
+		if (my_media != null)
+		{
+			my_media.pause();
+		}
+	}
 }, 
 
 load: function(result)
@@ -141,13 +152,12 @@ load: function(result)
 			continue_playing = true;
             var pieces = [];
             serverURL = "http://leiner.cs-i.brandeis.edu:9000";
-			
-
             //load database pieces into variable pieces
     		$.ajax({
         		type: "GET",
         		url: serverURL + "/pieces",
     		}).done(function(db_pieces) {
+					alert(JSON.stringify(db_pieces));
     				//each item is a piece
     				db_pieces.forEach(function(item) {
     					pieces[pieces.length] = item;
@@ -176,7 +186,7 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(true, current_piece.artist_details.audio_on_load);
+								play_audio(true, current_piece.artist_details.audio_on_load+","+current_piece.artist_details.audio_on_load);
 								showDiv("artist");
 							}
 							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
