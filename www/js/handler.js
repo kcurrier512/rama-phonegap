@@ -4,28 +4,8 @@ var played = false;
 var continue_playing = true;
 
 var my_media = null;
+var duration = 0;
 
-/*function play_audio(doc, audio)
-{
-	audio_array = audio.split(',');
-	if (audio_array.length == 1)
-	{
-		doc.src = audio_array[0];
-	}
-	else  
-	{
-		for (var i=0; i<audio.length; i++)
-		{
-			if (continue_playing == false) 
-				return;
-				
-			doc.src = audio_array[i];
-			var duration = audio_array[i].duration;
-			doc.play();
-			setTimeout(function(){alert("Continue or enough?");},duration);
-		}
-	}
-}*/
 
 function info(){
 	alert(window.location.hash);
@@ -41,22 +21,84 @@ function info(){
 	}
 }
 
-function play_audio(ifPlayed, url) {
-    // Play the audio file at url
-    my_media = new Media(url,
+
+function info(){
+	alert(window.location.hash);
+	alert(location.hash);
+	if (window.location.hash == "#welcome"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/welcome.wav")
+	}
+	if(window.location.hash == "#gallery"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/gallery.wav")
+	}
+	if(window.location.hash == "#Painting"){
+		play_audio(false, "https://s3.amazonaws.com/RamaAudio/piece.wav")
+	}
+}
+
+
+function play_audio(ifPlayed, url)
+{
+	var url_array = url.split(",");	
+
+	if (continue_playing == false)
+		return;
+	
+	if (my_media != null)
+		my_media.stop();
+		
+	my_media = new Media(url_array[0],
         // success callback
         function() {
-            console.log("playAudio():Audio Success");
+           // alert("playAudio():Audio Success");
         },
         // error callback
         function(err) {
-            console.log("playAudio():Audio Error: "+err);
-    });
+           // alert("playAudio():Audio Error: "+err);
+	});
+	my_media.play();
+	
+		
+    var getDur = setTimeout(function() {
+	 
+		var duration = my_media.getDuration();	
+		if (duration <= 0) //error so exit
+			return;
+			
+		// Play audio
+		played = ifPlayed;
 
-    // Play audio
-    my_media.play();
-    played = ifPlayed;
+	    var timerDur = setTimeout(function() {				
+			if (url_array.length==1)
+				return;
+			
+			my_media.stop();
+			my_media_2 = new Media("https://s3.amazonaws.com/RamaAudio/hearmore.wav",
+				// success callback
+				function() {
+				// alert("playAudio():Audio Success");
+				},
+				// error callback
+				function(err) {
+				// alert("playAudio():Audio Error: "+err);
+			});
+			
+			my_media_2.play();
+			
+			var newTimeDur = setTimeout(function () {
+				if (continue_playing == true)
+				{
+					url_array.shift();
+					play_audio(ifPlayed, url_array.toString());
+				}
+			}, 5000);  //give user a few seconds to respond
+			
+		}, 1000*duration);
+  
+    }, 2750);	
 }
+
+
 
 
 function pause_audio(){
@@ -65,7 +107,6 @@ function pause_audio(){
 function resume_audio(){
 	my_media.play();
 }
-
 
 function hideDivs(){
 	var string = "_categories";
@@ -94,17 +135,17 @@ var current_piece = new piece();
 var handler = {
 
 
-/*setContinuePlaying:  function(boolvalue)
+setContinuePlaying:  function(boolvalue)
 {
 	continue_playing = boolvalue;
-	if (continue_playing == false)
-		document.getElementById("audio-player").pause();
-}, */
+}, 
 
 load: function(result)
 {
+			continue_playing = true;
             var pieces = [];
             serverURL = "http://leiner.cs-i.brandeis.edu:9000";
+			
 
             //load database pieces into variable pieces
     		$.ajax({
@@ -124,12 +165,10 @@ load: function(result)
 							new_name = name.replace(" ", "");
 							document.getElementById("current_painting").src = piece.picture;
 							document.getElementById("current_title").innerHTML = toTitleCase(name);
-							getURL();
 							//change div back to original_categories
 							hideDivs();
 							showDiv("original");
 							current_piece = piece;
-
 						}
 					});
 				}
@@ -142,11 +181,11 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(true, current_piece.artist_details.audio_on_load)
+								play_audio(true, current_piece.artist_details.audio_on_load);
 								showDiv("artist");
 							}
 							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
-								play_audio(true, current_piece.piece_details.audio_on_load);
+								play_audio(true, current_piece.piece_details.audio_on_load+","+current_piece.piece_details.audio_on_load);
 								showDiv("piece");
 							}
 						}
