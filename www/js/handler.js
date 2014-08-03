@@ -67,16 +67,6 @@ function play_audio(ifPlayed, url)
 			
 		// Play audio
 
-	
-		
-    var getDur = setTimeout(function() {
-	 
-		var duration = my_media.getDuration();	
-		if (duration <= 0) //error so exit
-			return;
-			
-		// Play audio
-		played = ifPlayed;
 
 	    var timerDur = setTimeout(function() {				
 			if (url_array.length==1)
@@ -94,12 +84,11 @@ function play_audio(ifPlayed, url)
 				// alert("playAudio():Audio Error: "+err);
 			});
 						
-			my_media.play();
+			my_media.play(); //would you like to hear more?
 			
-			
-			sp.recognize();
-
-
+			var otherTimer = setTimeout(function () { //wait 1.5 secs and then record 
+					sp.recognize();
+			}, 2500);
 			
 			var newTimeDur = setTimeout(function () {
 				if (continue_playing == true)
@@ -107,7 +96,7 @@ function play_audio(ifPlayed, url)
 					url_array.shift();
 					play_audio(ifPlayed, url_array.toString());
 				}
-			}, 3000);  //give user a few seconds to respond
+			}, 2500);  //give user a few seconds to respond
 			
 		}, (1000*duration)-1000);
   
