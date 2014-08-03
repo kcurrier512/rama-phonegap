@@ -67,11 +67,23 @@ function play_audio(ifPlayed, url)
 			
 		// Play audio
 
+	
+		
+    var getDur = setTimeout(function() {
+	 
+		var duration = my_media.getDuration();	
+		if (duration <= 0) //error so exit
+			return;
+			
+		// Play audio
+		played = ifPlayed;
+
 	    var timerDur = setTimeout(function() {				
 			if (url_array.length==1)
 				return;
 			
 			my_media.stop();
+
 			my_media = new Media("https://s3.amazonaws.com/RamaAudio/hearmore.wav",
 				// success callback
 				function() {
@@ -87,6 +99,8 @@ function play_audio(ifPlayed, url)
 			
 			sp.recognize();
 
+
+			
 			var newTimeDur = setTimeout(function () {
 				if (continue_playing == true)
 				{
@@ -192,7 +206,7 @@ load: function(result)
 								showDiv("artist");
 							}
 							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
-								play_audio(true, current_piece.piece_details.audio_on_load);
+								play_audio(true, current_piece.piece_details.audio_on_load+","+current_piece.piece_details.audio_on_load);
 								showDiv("piece");
 							}
 						}
