@@ -2,15 +2,15 @@
 <html>
   <head>
     <title>The Rose | Brandeis University</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" media="all" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="css/styles.css" media="all" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/stylerama.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.1/modernizr.min.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
-	<script src="js/model.js"></script>
+<script src="js/model.js"></script>
     <script src="js/view.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/main.js"></script>
@@ -18,27 +18,43 @@
     <script type="text/javascript" src="js/speech.js"></script>
     <script type="text/javascript" src="js/handler.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
-
-	<script>
-		app.initialize();
-	</script>
-	<script>
-	var qr ={
-		scanner: function(){
-	   cordova.plugins.barcodeScanner.scan(
+    <script>
+function toTitleCase(str){
+return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+function getURL(){
+if(document.URL.charAt(37).toUpperCase() + document.URL.slice(38) != "Painting"){
+document.getElementById("page-title").innerHTML = document.URL.charAt(37).toUpperCase() + document.URL.slice(38);	
+}else{
+document.getElementById("page-title").innerHTML = document.getElementById("current_title").innerHTML;
+}
+}
+getURL();
+</script>
+<script>
+app.initialize();
+</script>
+<script>
+var qr ={
+scanner: function(){
+cordova.plugins.barcodeScanner.scan(
       function (result) {
           alert("We got a barcode\n" +
                 "Result: " + result.text + "\n" +
                 "Format: " + result.format + "\n" +
                 "Cancelled: " + result.cancelled);
-      }, 
+      },
       function (error) {
           alert("Scanning failed: " + error);
       }
    );
-	}
 }
-	</script>
+}
+$(window).bind("load", function() {
+// code here
+});
+
+</script>
 
 <style>
 
@@ -68,10 +84,10 @@
 
 <!-- Start body ... onhashchange updates the title of the page -->
 <body onhashchange="getURL();">
-	<!--Start Content-->
-	<div data-role="page" class="pages" id="home" data-theme="b">	 
+<!--Start Content-->
+<div data-role="page" class="pages" id="home" data-theme="b">	
 
-	<!-- Header of all pages ... always loads no matter what page -->
+<!-- Header of all pages ... always loads no matter what page -->
     <header class="clearfix" >
       <a class="menu pull-left" data-position="left" href="#">
         <div class="bar"></div>
@@ -79,230 +95,225 @@
         <div class="bar"></div>
       </a>
       <a onclick="info()">
-      	<button type="button" class="btn btn-default btn-lg pull-right" >
-      		<span class="glyphicon glyphicon-info-sign"></span>
-		</button>
+       <button type="button" class="btn btn-default btn-lg pull-right" >
+       <span class="glyphicon glyphicon-info-sign"></span>
+</button>
       </a>
       <div id="page-title">
-	  </div>
+</div>
     </header>
 
-	
-	<!-- Triggered when welcome	screen is automatically loaded ... Hides when other pages load -->
-	<div id="welcome-view" class="view">
 
-		<div align="center">
-			 
+<!-- Triggered when welcome screen is automatically loaded ... Hides when other pages load -->
+<div id="welcome-view" class="view">
 
-			<div style='text-align:center;padding-top:20px;'>
-			  
-			  <!-- 
-			  I would prefer the user use on-screen swipe gestures, so I'm commenting these out. With that, keep the onclick functions of these in mind in the case you'd like to do something cool with them. 
-			  
-			  <button onclick='mySwipe.prev()'>prev</button> 
-			  <button onclick='mySwipe.next()'>next</button>
-			  -->
-
-			</div>
+<div align="center">
 
 
+<div style='text-align:center;padding-top:20px;'>
 
-			<!-- Chatbox div -->
-			<div id="chatbox" class="img-responsive">
-				<i align="center">The Rose Art Museum App</i>
-				<br/>
-				<br/>
-				There are two seamless ways to interact with RAMA:
-				<br/>
-				Either tap the camera button to scan the artwork's QR code (located on the wall) 
-				<br/>
-				or
-				<br/>
-				Tap the microphone button to tell us which app you would like to look at. 
-				<br/>
-				<br/>
-				If you have any questions, tap the phone icon on the top bar to be routed to one of our curators.
+<!--
+I would prefer the user use on-screen swipe gestures, so I'm commenting these out. With that, keep the onclick functions of these in mind in the case you'd like to do something cool with them.
+<button onclick='mySwipe.prev()'>prev</button>
+<button onclick='mySwipe.next()'>next</button>
+-->
 
-			</div>
-			<!-- /Chatbox image -->
+</div>
 
 
-			<!-- Creates space between chatbox and buttons-->		
-			<br/>			
-			<br/> 
-			<br/> 
-			<br/> 
-			<br/> 
-			<!-- /Creates space between chatbox and buttons-->
 
-			<div id="movers-row">
-				<!-- Buttons-->
-				<div>
-			      	<button type="button" class="btn btn-default btn-lg" onclick="qr.scanner()">
-			      		<span class="glyphicon glyphicon-camera"></span>
-					</button>
-				</div>
-				<div>
-					<img onclick="sp.recognize()" id="micbtn" src="img/mic-btn.png" draggable="false"></img>
-				</div>
-				<!-- /Buttons-->
-			</div>
-		</div>
-	</div>
-	<!-- /Welcome screen -->
-	
-	
-	<!-- Triggered when gallery	screen is automatically loaded ... Hides when other pages load -->
-	<div id="gallery-view" class="view">
+<!-- Chatbox div -->
+<div id="chatbox" class="img-responsive">
+<i align="center">The Rose Art Museum App</i>
+<br/>
+<br/>
+There are two seamless ways to interact with RAMA:
+<br/>
+Either tap the camera button to scan the artwork's QR code (located on the wall)
+<br/>
+or
+<br/>
+Tap the microphone button to tell us which app you would like to look at.
+<br/>
+<br/>
+If you have any questions, tap the phone icon on the top bar to be routed to one of our curators.
+
+</div>
+<!-- /Chatbox image -->
+
+
+<!-- Creates space between chatbox and buttons-->	
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<!-- /Creates space between chatbox and buttons-->
+<div id="movers-row">
+<!-- Buttons-->
+<div>
+<img onclick="sp.recognize()" id="above-footer" src="img/mic-btn.png" draggable="false"></img>
+</div>
+<!-- /Buttons-->
+</div>
+
+<div id="movers-row">
+<!-- Buttons-->
+<div>
+<img onclick="sp.recognize()" id="above-footer" src="img/mic-btn.png" draggable="false"></img>
+</div>
+<!-- /Buttons-->
+</div>
+</div>
+</div>
+<!-- /Welcome screen -->
+
+
+<!-- Triggered when gallery screen is automatically loaded ... Hides when other pages load -->
+<div id="gallery-view" class="view">
+<div width="95%">
+
+
 <table align="center">
-			<tr>
-				<td>
-					<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
-						<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
-							click this text
-						</div>
-					</a>
-				</td>
-				<td>
-					<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('blue white')" title= "Blue White">
-						<div class="blue-white" style="overflow:hidden; text-indent:100%;white-space:nowrap">
-							click this text
-						</div>
-					</a>
-				</td>
-				<td>
-					<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
-						<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
-							click this text
-						</div>
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
-						<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
-							click this text
-						</div>
-					</a>
-				</td>
-				<td>
-					<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
-						<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
-							click this text
-						</div>
-					</a>
-				</td>
-				<td>
-					<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('blue white')" title= "Blue White">
-						<div class="blue-white" style="overflow:hidden; text-indent:100%;white-space:nowrap">
-							click this text
-						</div>
-					</a>
-				</td>
-			</tr>
-		</table>		
-	</div>
+<tr>
+<td>
+<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
+<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
+click this text
+</div>
+</a>
+</td>
+<td>
 
-	<!-- Triggered when tester screen is automatically loaded ... Hides when other pages load -->
-	<div id="Painting-view" class="view">
+<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('blue white')" title= "Blue White">
+<div class="blue-white" style="overflow:hidden; text-indent:100%;white-space:nowrap">
+click this text
+</div>
+</a>
+</td>
+<td>
+<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
+<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
+click this text
+</div>
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
+<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
+click this text
+</div>
+</a>
+</td>
+<td>
+<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('forget it! forget me!')" title= "Forget it! Forget me!">
+<div class="square" style="overflow:hidden; text-indent:100%;white-space:nowrap">
+click this text
+</div>
+</a>
+</td>
+<td>
+<a id="paintings_categories" onclick="roseApp.showView('Painting'); handler.load('blue white')" title= "Blue White">
+<div class="blue-white" style="overflow:hidden; text-indent:100%;white-space:nowrap">
+click this text
+</div>
+</a>
+</td>
+</tr>
+</table>
+<div id="movers-row">
+<!-- Buttons-->
+<div>
+<img onclick="sp.recognize()" id="above-footer" src="img/mic-btn.png" draggable="false"></img>
+</div>
+<!-- /Buttons-->
+</div>
+
+</div>
+</div>
+
+<!-- Triggered when tester screen is automatically loaded ... Hides when other pages load -->
+<div id="Painting-view" class="view">
 
 <br/>
-	<!-- ARI TOSSED ALL OF STEVEN'S STUFF INTO A CENTERED DIV -->
-	<div align="center">
+<!-- ARI TOSSED ALL OF STEVEN'S STUFF INTO A CENTERED DIV -->
+<div align="center">
 
-		<div><img src="" width="100" height="100"id="current_painting"/></div>
-	      	<button type="button" class="btn btn-default btn-lg" onclick="pause_audio()">
-				<span class="glyphicon glyphicon-pause"></span>
-			</button>
-	      	<button type="button" class="btn btn-default btn-lg" onclick="resume_audio()">
-				<span class="glyphicon glyphicon-play"></span>
-			</button>
-			<br/>
-
-		<span id="current_title"></span>
-
+<div><img src="" width="200px" height="200px"id="current_painting"/></div>
 <br/>
 <!-- Chatbox here. -->
 
-<div style="background-color:white;width:80%;height:300px;opacity:.7;color:black;">
-
-		<span id="original_categories" style="display:none;">
-			
-			<!--<div class="back" onclick="hideDivs(); showDiv('paintings'); document.getElementById('current').style.display ='none';">Back</div> -->
-			<div onclick="handler.load('about the artist');">About the artist</div>
-			<div onclick="handler.load('about the piece');">About the piece</div>
-		</span>
-		<span id="artist_categories" style="display:none;">
-			<div class="back" onclick="hideDivs(); showDiv('original');"> Back</div>
-			<div onclick="handler.load('biography');">Biography</div>
-			<div onclick="handler.load('career');">Career</div></span>
-		</span>
-		<span id="piece_categories" style="display:none;">
-			<div class="back" onclick="hideDivs(); showDiv('original');">Back</div>
-			<div onclick="handler.load('style');">Style</div>
-			<div onclick="handler.load('medium');">Medium</div>
-		</span>		
-		<!-- /STEVEN'S STUFF-->
-
-
-
-
+<div id="chatbox" align="center" size="30px">
+<br>
+<span id="current_title" color="white" style="display:none;"></span>
+<span id="original_categories" style="display:none;">
+<div onclick="handler.load('about the artist');">About the artist</div>
+<div onclick="handler.load('about the piece');">About the piece</div>
+</span>
+<span id="artist_categories" style="display:none;">
+<div class="back" onclick="hideDivs(); showDiv('original');"> Back</div>
+<div onclick="handler.load('biography');">Biography</div>
+<div onclick="handler.load('career');">Career</div></span>
+</span>
+<span id="piece_categories" style="display:none;">
+<div class="back" onclick="hideDivs(); showDiv('original');">Back</div>
+<div onclick="handler.load('style');">Style</div>
+<div onclick="handler.load('medium');">Medium</div>
+</span>
+<br/>	
+<!-- /STEVEN'S STUFF-->
 </div>
+<button type="button" class="btn btn-default btn-lg" onclick="pause_audio()">
+<span class="glyphicon glyphicon-pause"></span>
+</button>
+       <button type="button" class="btn btn-default btn-lg" onclick="resume_audio()">
+<span class="glyphicon glyphicon-play"></span>
+</button>
 
-<br/>
-<br/>
-<br/>
-
-<br/>
-<br/>
-<br/>
-<br/>
-			<div id="movers-row">
-				<!-- Buttons-->
-				<div>
-			      	<button type="button" class="btn btn-default btn-lg" onclick="qr.scanner()">
-			      		<span class="glyphicon glyphicon-camera"></span>
-					</button>
-				</div>
-				<div>
-					<img onclick="sp.recognize()" id="micbtn" src="img/mic-btn.png" draggable="false"></img>
-				</div>
-				<!-- /Buttons-->
-			</div>
+<div id="movers-row">
+<!-- Buttons-->
+<div>
+<img onclick="sp.recognize()" id="above-footer" src="img/mic-btn.png" draggable="false"></img>
+</div>
+<!-- /Buttons-->
+</div>
 
 </div>
 </div>
-	<!-- /content -->
+<!-- /content -->
 
-	<!-- Triggered when about screen is automatically loaded ... Hides when other pages load -->
-	<div id="about-view" class="view">
-		<h1 align="center">ABOUT THE ROSE</h1>
-		Founded in 1961, The Rose Art Museum of Brandeis University is an educational and cultural institution dedicated to collecting, preserving and exhibiting the finest of modern and contemporary art.
-		<br>
-		The programs of the Rose adhere to the overall mission of the university, embracing its values of academic excellence, social justice and freedom of expression.
-		<br>
-		MISSION
-		<br>
-		Founded in 1961, The Rose Art Museum of Brandeis University is an educational and cultural institution dedicated to collecting, preserving and exhibiting the finest of modern and contemporary art. The programs of the Rose adhere to the overall mission of the University, embracing its values of academic excellence, social justice, and freedom of expression. 
-		<br>
-		An active participant in the academic, cultural and social life of Brandeis, the Rose seeks to stimulate public awareness and disseminate knowledge of modern and contemporary art to enrich educational, cultural and artistic communities regionally, nationally and internationally. 
-		<br>
-		The Rose affirms the principle that knowledge of the past informs an understanding of the present and provides the critical foundation for shaping the future. It promotes learning and understanding of the evolving meanings, ideas and forms of visual art relevant to contemporary society.
-	</div>
-	<!-- /content -->
+<!-- Triggered when about screen is automatically loaded ... Hides when other pages load -->
+<div id="about-view" class="view">
+<h1 align="center">ABOUT THE ROSE</h1>
+Founded in 1961, The Rose Art Museum of Brandeis University is an educational and cultural institution dedicated to collecting, preserving and exhibiting the finest of modern and contemporary art.
+<br>
+The programs of the Rose adhere to the overall mission of the university, embracing its values of academic excellence, social justice and freedom of expression.
+<br>
+MISSION
+<br>
+Founded in 1961, The Rose Art Museum of Brandeis University is an educational and cultural institution dedicated to collecting, preserving and exhibiting the finest of modern and contemporary art. The programs of the Rose adhere to the overall mission of the University, embracing its values of academic excellence, social justice, and freedom of expression.
+<br>
+An active participant in the academic, cultural and social life of Brandeis, the Rose seeks to stimulate public awareness and disseminate knowledge of modern and contemporary art to enrich educational, cultural and artistic communities regionally, nationally and internationally.
+<br>
+The Rose affirms the principle that knowledge of the past informs an understanding of the present and provides the critical foundation for shaping the future. It promotes learning and understanding of the evolving meanings, ideas and forms of visual art relevant to contemporary society.
+</div>
+<!-- /content -->
 
-	<div id="help-view" class="view">
-		<h3 align="center">HOW TO USE RAMA</h3>
-		The Rose Art Museum App, or RAMA, uses voice commands for eyes free access.  This allows it to be easily integrated into the museum experience without distracting from the art.
-		<br>
-		<h4>Commands:  </h4>
-		<ul>
-			<li>"Take me to [piece title or artist]"</li>
-			<li>"Go to [page]"</li>
-			<li>"Help me!"</li>
-		</ul>
-	</div>
+<div id="help-view" class="view" align="center">
+<div id="chatbox">
+<h3 align="center">HOW TO USE RAMA</h3>
+The Rose Art Museum App, or RAMA, uses voice commands for eyes free access. This allows it to be easily integrated into the museum experience without distracting from the art.
+<br>
+<h4>Commands: </h4>
+<ul>
+<li>"Take me to [piece title or artist]"</li>
+<li>"Go to [page]"</li>
+<li>"Help me!"</li>
+</ul>
+</div>
+</div>
 
 
 
@@ -327,38 +338,25 @@
           <a onclick="roseApp.showView('help')">Help</a>
         </li>
       </ul>
-	</nav>
+</nav>
 
-		<!-- footer -->
-		<footer id="footer">
-			<h4>&copy; 2014 Rose Art Museum  </h4>
-		</footer>
-		<!-- /footer -->
+<!-- footer -->
+<footer id="footer">
+<h4>&copy; 2014 Rose Art Museum </h4>
+</footer>
+<!-- /footer -->
 
-	</div><!-- /page -->
+</div><!-- /page -->
 
     <script src="js/main.js"></script>
-    <script>  
-	    function toTitleCase(str){
-			    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-		}
-	    function getURL(){
-	    	if(document.URL.charAt(37).toUpperCase() + document.URL.slice(38) != "Painting"){
-				document.getElementById("page-title").innerHTML = document.URL.charAt(37).toUpperCase() + document.URL.slice(38);	    		
-	    	}else{
-	    		document.getElementById("page-title").innerHTML = toTitleCase(document.getElementById("current_title").innerHTML.charAt(0).toUpperCase() + document.getElementById("current_title").innerHTML.slice(1));
-	    	}
-		}
-		getURL();
-	</script>
 
 
   </body>
-	<script>
-	// this is the code that actually starts the JavaScript application!!
-	// when the document has been fully loaded, all the roseApp.start() method
-	$(document).ready(roseApp.start());
-	</script>
+<script>
+// this is the code that actually starts the JavaScript application!!
+// when the document has been fully loaded, all the roseApp.start() method
+$(document).ready(roseApp.start());
+</script>
 
 
 <script src='js/swipe.js'></script>

@@ -37,78 +37,70 @@ function info(){
 }
 
 
+function play_audio(ifPlayed, url)
+{
+	var url_array = url.split(",");	
 
-
-
-function play_audio(ifPlayed, url) {
-   url_array = url.split(',');
-   if (url_array.length==1)
-   {
-
-    // Play the audio file at url
-    my_media = new Media(url_array[0],
+	if (continue_playing == false)
+		return;
+	
+	if (my_media != null)
+		my_media.stop();
+		
+	my_media = new Media(url_array[0],
         // success callback
         function() {
-            alert("playAudio():Audio Success");
+           // alert("playAudio():Audio Success");
         },
         // error callback
         function(err) {
-            alert("playAudio():Audio Error: "+err);
-    });
+           // alert("playAudio():Audio Error: "+err);
+	});
+	my_media.play();
+	played = ifPlayed;
 
-    // Play audio
-    my_media.play();
-    played = ifPlayed;
+    var getDur = setTimeout(function() {
 
-   }
-   else if (url_array.length > 1)
-   {
-   	for (var i=0; i<url_array.length; i++)
-   	{
-   		if (continue_playing == false)
-   		{
-   			alert('continue playing is false');
-   			return;
-   		}
-   			
-   			
-   		my_media = new Media(url_array[i],
-        	// success callback
-		   function() {
-            		console.log("playAudio():Audio Success");
-        		},
-		  // error callback
-		  function(err) {
-        		 console.log("playAudio():Audio Error: "+err);
-    			});
+		var duration = my_media.getDuration();	
+		if (duration <= 0) //error so exit
+			return;
+			
+		// Play audio
 
-    		// Play audio
-		 my_media.play();
-		 played = ifPlayed;
-   			
-		 
-       var counter = 0;
-       var duration = 0;
-    var timerDur = setInterval(function() {
-        counter = counter + 100;
-        if (counter > 2000) {
-            clearInterval(timerDur);
-        }
-        var dur = my_media.getDuration();
-        if (dur > 0) {
-            clearInterval(timerDur);
-            duration = dur;
-            //return;
-        }
-   }, 100);
-	alert(duration+"d"):
+	    var timerDur = setTimeout(function() {				
+			if (url_array.length==1)
+				return;
+			
+			my_media.stop();
+			my_media = new Media("https://s3.amazonaws.com/RamaAudio/hearmore.wav",
+				// success callback
+				function() {
+				// alert("playAudio():Audio Success");
+				},
+				// error callback
+				function(err) {
+				// alert("playAudio():Audio Error: "+err);
+			});
+						
+			my_media.play();
+			
+			
+			sp.recognize();
 
-   		 
-   		 
-	}
-   }
-
+			var newTimeDur = setTimeout(function () {
+				if (continue_playing == true)
+				{
+					url_array.shift();
+					play_audio(ifPlayed, url_array.toString());
+				}
+			}, 3000);  //give user a few seconds to respond
+			
+		}, (1000*duration)-1000);
+  
+    }, 2750);	
 }
+
+
 
 
 function pause_audio(){
@@ -148,21 +140,25 @@ var handler = {
 setContinuePlaying:  function(boolvalue)
 {
 	continue_playing = boolvalue;
-	if (continue_playing == false)
-		document.getElementById("audio-player").pause();
+	if (continue_playing == false) {
+		if (my_media != null)
+		{
+			my_media.pause();
+		}
+	}
 }, 
 
 load: function(result)
 {
+			continue_playing = true;
             var pieces = [];
             serverURL = "http://leiner.cs-i.brandeis.edu:9000";
-			
-
             //load database pieces into variable pieces
     		$.ajax({
         		type: "GET",
         		url: serverURL + "/pieces",
     		}).done(function(db_pieces) {
+					alert(JSON.stringify(db_pieces));
     				//each item is a piece
     				db_pieces.forEach(function(item) {
     					pieces[pieces.length] = item;
@@ -192,7 +188,7 @@ load: function(result)
 						{
 							hideDivs();
 							if (result.match(category) == "about the artist"){
-								play_audio(true, current_piece.artist_details.audio_on_load)
+								play_audio(true, current_piece.artist_details.audio_on_load+","+current_piece.artist_details.audio_on_load);
 								showDiv("artist");
 							}
 							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {

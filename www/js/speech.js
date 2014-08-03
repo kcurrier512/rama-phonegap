@@ -24,11 +24,11 @@ recognize: function(){
 function redirect(result){
     result = result.toLowerCase();
     if((result.indexOf("blue white") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
-        handler.load('Blue White');
+        handler.load('blue white');
         roseApp.showView('Painting');
     }
     else if((result.indexOf("forget") > -1) || (result.indexOf("lichtenstein") > -1) || (result.indexOf("liechtenstein") > -1)){
-        handler.load('Forget it! Forget me!');
+        handler.load('forget it! forget me!');
         roseApp.showView('Painting');
     }
     else if(result.indexOf("gallery") > -1){
@@ -40,10 +40,10 @@ function redirect(result){
     else if(result.indexOf("help") > -1){
         roseApp.showView('help');
     }
-    else if ((result.indexOf("continue") > -1) || (result.indexOf("more") > -1) ||  (result.indexOf("go on") > -1)){
+    else if ((result.indexOf("yes") > -1) || (result.indexOf("yeah") > -1) ||  (result.indexOf("Okay") > -1) || (result.indexOf("OK") > -1)){
         handler.setContinuePlaying(true);
     }
-    else if ((result.indexOf("stop") > -1) || (result.indexOf("enough") > -1) || (result.indexOf("pause") > -1)){
+    else if ((result.indexOf("stop") > -1) || (result.indexOf("nope") > -1) || (result.indexOf("no") > -1) || (result.indexOf("pause") > -1)){
         handler.setContinuePlaying(false);
     }
     else{

@@ -9,23 +9,19 @@
                 "parents": {
                     "/*": [
                         {
-
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.manueldeveloper.SpeechRecognizer\" /></feature>",
-
                             "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
-
                         {
                             "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SpeechRecognizer\"><param name=\"android-package\" value=\"com.manueldeveloper.SpeechRecognizer\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -566,15 +562,13 @@
         }
     },
     "installed_plugins": {
-        "com.phonegap.plugins.barcodescanner": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "com.manueldeveloper.speech-recognizer": {
-
         "org.apache.cordova.media": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
         "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.manueldeveloper.speech-recognizer": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },
