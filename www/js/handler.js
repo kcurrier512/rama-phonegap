@@ -88,15 +88,16 @@ function play_audio(ifPlayed, url)
 			
 			var otherTimer = setTimeout(function () { //wait 1.5 secs and then record 
 					sp.recognize();
-			}, 2500);
+					var newTimeDur = setTimeout(function () {
+						if (continue_playing == true)
+						{
+							url_array.shift();
+							play_audio(ifPlayed, url_array.toString());
+						}
+					}, 3000);  //give user a few seconds to respond
+			}, 2600);
 			
-			var newTimeDur = setTimeout(function () {
-				if (continue_playing == true)
-				{
-					url_array.shift();
-					play_audio(ifPlayed, url_array.toString());
-				}
-			}, 2500);  //give user a few seconds to respond
+
 			
 		}, (1000*duration)-1000);
   
