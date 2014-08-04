@@ -42,7 +42,7 @@ function redirect(result){
     else if(result.indexOf("help") > -1){
         roseApp.showView('help');
     }
-    else if ((result.indexOf("yes") > -1) || (result.indexOf("yeah") > -1) ||  (result.indexOf("okay") > -1) || (result.indexOf("OK") > -1)){
+    else if ((result.indexOf("yes") > -1) || (result.indexOf("yeah") > -1) ||  (result.indexOf("okay") > -1) || (result.indexOf("ok") > -1)){
         handler.setContinuePlaying(true);
     }
     else if ((result.indexOf("stop") > -1) || (result.indexOf("nope") > -1) || (result.indexOf("no") > -1) || (result.indexOf("pause") > -1)){
