@@ -15,8 +15,6 @@ var serverURL = "http://leiner.cs-i.brandeis.edu:9000";
 
 function TextInArray(array, text)
 {
-	alert("text"+text);
-	alert(array);
 	for (var i=0; i<array.length; i++)
 	{
 		if (text.indexOf(array[i]) > -1)
@@ -206,38 +204,34 @@ load: function(result)
 				}
 				
 
-					current_piece.categories.forEach(function(category) {
-						category = category.toLowerCase();
-						if (result.search(category) > -1)
-						{
-							hideDivs();
-							if (result.match(category) == "about the artist"){
-								play_audio(true, current_piece.artist_details.audio_on_load+","+current_piece.artist_details.audio_on_load);
+
+				if (result.indexOf("about the artist")>-1) {
+								play_audio(true, current_piece.artist_details.audio_on_load+","+current_piece.artist_details.audio_on_load);	
+								hideDivs();
 								showDiv("artist");
-							}
-							if ((result.match(category) == "about the piece") || (result.match(category) == "about the peace")) {
+				}
+				if (result.indexOf("about the piece")>-1) {
 								play_audio(true, current_piece.piece_details.audio_on_load+","+current_piece.piece_details.audio_on_load);
 								showDiv("piece");
-							}
-						}
-					});
+				}
+	
 				
 
 									
-					if (TextInArray(biography, result)==true) {
+				if (TextInArray(biography, result)==true) {
 							play_audio(true, current_piece.artist_details.biography);
-					}
-					else if (TextInArray(career, result)==true) {
+				}
+				else if (TextInArray(career, result)==true) {
 							play_audio(true, current_piece.artist_details.career);
-					}
+				}
 				
 
-					if (TextInArray(style, result)==true){
+				if (TextInArray(style, result)==true){
 							play_audio(true, current_piece.piece_details.style);
-					}
-					else if (TextInArray(medium, result)==true){
+				}
+				else if (TextInArray(medium, result)==true){
 							play_audio(true, current_piece.piece_details.medium);
-					}						
+				}						
 						
 						
 				if(!played){
