@@ -28,7 +28,7 @@ function redirect(result){
 	//before doing anything, record the response in the responses database
 	handler.record(result);
 	
-    if((result.indexOf("blue white") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
+    if((result.indexOf("blue white") > -1) || (result.indexOf("blue") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
         handler.load('blue white');
         roseApp.showView('Painting');
     }

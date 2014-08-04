@@ -228,7 +228,7 @@ load: function(result)
 								hideDivs();
 								showDiv("artist");
 				}
-				if (result.indexOf("about the piece")>-1) {
+				if (result.indexOf("about the piece")>-1 || result.indexOf("about the peace")>-1) {
 								play_audio(true, current_piece.piece_details.audio_on_load);
 								hideDivs();
 								showDiv("piece");
