@@ -158,7 +158,7 @@ load: function(result)
         		type: "GET",
         		url: serverURL + "/pieces",
     		}).done(function(db_pieces) {
-					alert(JSON.stringify(db_pieces));
+					//alert(JSON.stringify(db_pieces));
     				//each item is a piece
     				db_pieces.forEach(function(item) {
     					pieces[pieces.length] = item;
