@@ -42,6 +42,10 @@ function redirect(result){
     else if(result.indexOf("help") > -1){
         roseApp.showView('help');
     }
+    else if (result.indexOf("back") > -1){
+		hideDivs(); 
+		showDiv('original');
+	}
     else if ((result.indexOf("yes") > -1) || (result.indexOf("yeah") > -1) ||  (result.indexOf("okay") > -1) || (result.indexOf("ok") > -1)){
         handler.setContinuePlaying(true);
     }
