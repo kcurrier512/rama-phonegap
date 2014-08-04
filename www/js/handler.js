@@ -15,7 +15,6 @@ var something_playing = false;
 
 function TextInArray(array, text)
 {
-	alert(text);
 	for (var i=0; i<array.length; i++)
 	{
 		if (text.indexOf(array[i]) > -1)
