@@ -32,6 +32,10 @@ function redirect(result){
         handler.load('blue white');
         roseApp.showView('Painting');
     }
+    else if ((result.indexOf("jeeves") > -1) || (result.indexOf("improvement") > -1) || (result.indexOf("fridge") > -1) || (result.indexOf("alarm") > -1))
+    {
+		alert("I only know about high art.  US gun traffickers opt for handguns rather than rifles. Analysis of seized firearms etc.");
+	}
     else if((result.indexOf("forget") > -1) || (result.indexOf("lichtenstein") > -1) || (result.indexOf("liechtenstein") > -1)){
         handler.load('forget it! forget me!');
         roseApp.showView('Painting');
@@ -56,6 +60,10 @@ function redirect(result){
     else if ((result.indexOf("stop") > -1) || (result.indexOf("nope") > -1) || (result.indexOf("no") > -1) || (result.indexOf("pause") > -1)){
         handler.setContinuePlaying(false);
     }
+    else if((result.indexOf("instructions") > -1))
+    {
+		info();
+	}
     else{
         handler.load(result);
     } 

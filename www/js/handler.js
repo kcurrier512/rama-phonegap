@@ -11,12 +11,10 @@ var duration = 0;
 var current_piece = new piece();
 var serverURL = "http://leiner.cs-i.brandeis.edu:9000";
 
-
+var something_playing = false;
 
 function TextInArray(array, text)
 {
-	alert(array);
-	alert(text);
 	for (var i=0; i<array.length; i++)
 	{
 		if (text.indexOf(array[i]) > -1)
@@ -42,6 +40,8 @@ function info(){
 
 function play_audio(ifPlayed, url)
 {
+	played = ifPlayed;
+
 	var url_array = url.split(",");	
 
 	if (continue_playing == false)
@@ -62,8 +62,12 @@ function play_audio(ifPlayed, url)
         function(err) {
             //alert("playAudio():Audio Error: "+err);
 	});
+	if (something_playing == true)
+		return;
+	
 	my_media.play();
-	played = ifPlayed;
+	something_playing = true;
+	
 
     var getDur = setTimeout(function() {
 
@@ -79,7 +83,10 @@ function play_audio(ifPlayed, url)
 				return;
 			
 			my_media.stop();
-
+			
+			if (continue_playing == false) //check if user paused (see pause_audio() below)
+				return;
+				
 			my_media = new Media("https://s3.amazonaws.com/RamaAudio/hearmore.wav",
 				// success callback
 				function() {
@@ -105,9 +112,10 @@ function play_audio(ifPlayed, url)
 			
 
 			
-		}, (1000*duration)-1000);
+		}, (1000*duration)-2000);
   
     }, 2750);	
+    something_playing = false;
 }
 
 
@@ -115,6 +123,8 @@ function play_audio(ifPlayed, url)
 
 function pause_audio(){
 	my_media.pause();
+	handler.setContinuePlaying(false);
+	something_playing = false;
 }
 function resume_audio(){
 	my_media.play();
@@ -171,7 +181,6 @@ setContinuePlaying:  function(boolvalue)
 
 load: function(result)
 {
-			alert("called");
 			biography = ["biography", "life", "lifetime", "lifespan", "birth", "death", "born", "died"];
 			career = ["career", "currier", "work", "worked", "professional"];
 			style = ["style", "genre", "approach", "mode", "method", "methodology"];
@@ -202,6 +211,7 @@ load: function(result)
 							hideDivs();
 							showDiv("original");
 							current_piece = piece;
+							played = true;
 						}
 					});
 				}
@@ -209,12 +219,13 @@ load: function(result)
 				
 
 				if (result.indexOf("about the artist")>-1) {
-								play_audio(true, current_piece.artist_details.audio_on_load+","+current_piece.artist_details.audio_on_load);	
+								play_audio(true, current_piece.artist_details.audio_on_load);	
 								hideDivs();
 								showDiv("artist");
 				}
 				if (result.indexOf("about the piece")>-1) {
-								play_audio(true, current_piece.piece_details.audio_on_load+","+current_piece.piece_details.audio_on_load);
+								play_audio(true, current_piece.piece_details.audio_on_load);
+								hideDivs();
 								showDiv("piece");
 				}
 	
