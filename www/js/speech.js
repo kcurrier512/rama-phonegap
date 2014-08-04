@@ -8,7 +8,6 @@ recognize: function(){
             var result = JSON.stringify(results)
             result = result.substring(2, result.length - 2);
             alert(result);
-            result= result + "~"
             redirect(result);
 		}
 
@@ -22,9 +21,13 @@ recognize: function(){
 };
 
 function redirect(result){
-	handler.setContinuePlaying(true);  //needs to reset it here
 	
-    result = result.toLowerCase();
+	result = result.toLowerCase();
+
+	handler.setContinuePlaying(true);  //needs to reset it here
+	//before doing anything, record the response in the responses database
+	handler.record(result);
+	
     if((result.indexOf("blue white") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
         handler.load('blue white');
         roseApp.showView('Painting');
@@ -45,6 +48,7 @@ function redirect(result){
     else if (result.indexOf("back") > -1){
 		hideDivs(); 
 		showDiv('original');
+		pause_audio();
 	}
     else if ((result.indexOf("yes") > -1) || (result.indexOf("yeah") > -1) ||  (result.indexOf("okay") > -1) || (result.indexOf("ok") > -1)){
         handler.setContinuePlaying(true);
