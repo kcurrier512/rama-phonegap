@@ -15,6 +15,8 @@ var serverURL = "http://leiner.cs-i.brandeis.edu:9000";
 
 function TextInArray(array, text)
 {
+	alert(array);
+	alert(text);
 	for (var i=0; i<array.length; i++)
 	{
 		if (text.indexOf(array[i]) > -1)
@@ -169,6 +171,7 @@ setContinuePlaying:  function(boolvalue)
 
 load: function(result)
 {
+			alert("called");
 			biography = ["biography", "life", "lifetime", "lifespan", "birth", "death", "born", "died"];
 			career = ["career", "currier", "work", "worked", "professional"];
 			style = ["style", "genre", "approach", "mode", "method", "methodology"];
@@ -203,7 +206,7 @@ load: function(result)
 					});
 				}
 				
-
+				
 
 				if (result.indexOf("about the artist")>-1) {
 								play_audio(true, current_piece.artist_details.audio_on_load+","+current_piece.artist_details.audio_on_load);	
@@ -249,5 +252,5 @@ load: function(result)
 				played = false;
 			});					
 	}	
-
 }
+
