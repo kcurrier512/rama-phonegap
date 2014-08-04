@@ -8,7 +8,6 @@ recognize: function(){
             var result = JSON.stringify(results)
             result = result.substring(2, result.length - 2);
             alert(result);
-            result= result + "~"
             redirect(result);
 		}
 

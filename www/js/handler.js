@@ -15,9 +15,11 @@ var serverURL = "http://leiner.cs-i.brandeis.edu:9000";
 
 function TextInArray(array, text)
 {
+	alert("text"+text);
+	alert(array);
 	for (var i=0; i<array.length; i++)
 	{
-		if (array[i].indexOf(text) > -1)
+		if (text.indexOf(array[i]) > -1)
 			return true;
 	}
 	
@@ -43,7 +45,10 @@ function play_audio(ifPlayed, url)
 	var url_array = url.split(",");	
 
 	if (continue_playing == false)
+	{
+		continue_playing = true;
 		return;
+	}
 	
 	if (my_media != null)
 		my_media.stop();
@@ -172,7 +177,6 @@ load: function(result)
 			medium = ["made of", "medium", "material", "materials"];
 		
 			
-			continue_playing = true;
             var pieces = [];
             //load database pieces into variable pieces
     		$.ajax({
@@ -219,30 +223,24 @@ load: function(result)
 					});
 				
 
-					for (prop in current_piece.artist_details) {
-						if (result.search(prop) > -1)
-						{							
-							if (TextInArray(biography, result)==true) {
-								play_audio(true, current_piece.artist_details.biography);
-							}
-							else if (TextInArray(career, result)==true) {
-								play_audio(true, current_piece.artist_details.career);
-							}
-						}
+									
+					if (TextInArray(biography, result)==true) {
+							play_audio(true, current_piece.artist_details.biography);
 					}
+					else if (TextInArray(career, result)==true) {
+							play_audio(true, current_piece.artist_details.career);
+					}
+				
 
-					for (prop in current_piece.piece_details) {
-						if (result.search(prop) > -1)
-						{
-							if (TextInArray(style, result)==true){
-								play_audio(true, current_piece.piece_details.style);
-							}
-							else if (TextInArray(medium, result)==true){
-								play_audio(true, current_piece.piece_details.medium);
-							}						
-						}
+					if (TextInArray(style, result)==true){
+							play_audio(true, current_piece.piece_details.style);
 					}
-				if(!played && result.indexOf("~") > -1){
+					else if (TextInArray(medium, result)==true){
+							play_audio(true, current_piece.piece_details.medium);
+					}						
+						
+						
+				if(!played){
 					howManySorry  += 1;
 					if (howManySorry <= 2)
 					{
