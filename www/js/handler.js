@@ -37,18 +37,6 @@ function info(){
 }
 
 
-function info(){
-	if (window.location.hash == "#welcome"){
-		play_audio(false, "https://s3.amazonaws.com/RamaAudio/welcome.wav")
-	}
-	if(window.location.hash == "#gallery"){
-		play_audio(false, "https://s3.amazonaws.com/RamaAudio/gallery.wav")
-	}
-	if(window.location.hash == "#Painting"){
-		play_audio(false, "https://s3.amazonaws.com/RamaAudio/piece.wav")
-	}
-}
-
 
 function play_audio(ifPlayed, url)
 {
@@ -72,7 +60,7 @@ function play_audio(ifPlayed, url)
 	my_media.play();
 	played = ifPlayed;
 
-    var getDur = setTimeout(function() {
+    /*var getDur = setTimeout(function() {
 
 		var duration = my_media.getDuration();	
 		if (duration <= 0) //error so exit
@@ -114,7 +102,7 @@ function play_audio(ifPlayed, url)
 			
 		}, (1000*duration)-1000);
   
-    }, 2750);	
+    }, 2750);	*/
 }
 
 
@@ -191,7 +179,7 @@ load: function(result)
         		type: "GET",
         		url: serverURL + "/pieces",
     		}).done(function(db_pieces) {
-					alert(JSON.stringify(db_pieces));
+					//alert(JSON.stringify(db_pieces));
     				//each item is a piece
     				db_pieces.forEach(function(item) {
     					pieces[pieces.length] = item;
