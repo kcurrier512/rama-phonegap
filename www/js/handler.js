@@ -15,6 +15,7 @@ var something_playing = false;
 
 function TextInArray(array, text)
 {
+	alert(text);
 	for (var i=0; i<array.length; i++)
 	{
 		if (text.indexOf(array[i]) > -1)
@@ -46,6 +47,7 @@ function play_audio(ifPlayed, url)
 
 	if (continue_playing == false)
 	{
+		alert("continue1");
 		continue_playing = true;
 		return;
 	}
@@ -63,8 +65,10 @@ function play_audio(ifPlayed, url)
             //alert("playAudio():Audio Error: "+err);
 	});
 	if (something_playing == true)
+	{
+		alert("something");
 		return;
-	
+	}
 	my_media.play();
 	something_playing = true;
 	
@@ -73,19 +77,28 @@ function play_audio(ifPlayed, url)
 
 		var duration = my_media.getDuration();	
 		if (duration <= 0) //error so exit
+		{
+			something_playing = false
 			return;
+		}
 			
 		// Play audio
 
 
 	    var timerDur = setTimeout(function() {				
 			if (url_array.length==1)
+			{
+				something_playing = false;
 				return;
+			}
 			
 			my_media.stop();
 			
-			if (continue_playing == false) //check if user paused (see pause_audio() below)
+			if (continue_playing == false)
+			{ //check if user paused (see pause_audio() below)
+				alert("continue2");
 				return;
+			}
 				
 			my_media = new Media("https://s3.amazonaws.com/RamaAudio/hearmore.wav",
 				// success callback
@@ -104,6 +117,7 @@ function play_audio(ifPlayed, url)
 					var newTimeDur = setTimeout(function () {
 						if (continue_playing == true)
 						{
+							something_playing = false;
 							url_array.shift();
 							play_audio(ifPlayed, url_array.toString());
 						}
@@ -113,9 +127,10 @@ function play_audio(ifPlayed, url)
 
 			
 		}, (1000*duration)-2000);
-  
+	
+	 something_playing = false;
+
     }, 2750);	
-    something_playing = false;
 }
 
 
@@ -123,7 +138,6 @@ function play_audio(ifPlayed, url)
 
 function pause_audio(){
 	my_media.pause();
-	handler.setContinuePlaying(false);
 	something_playing = false;
 }
 function resume_audio(){

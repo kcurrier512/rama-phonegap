@@ -240,12 +240,12 @@ $(window).bind("load", function() {
 				<div onclick="handler.load('about the piece');">About the piece</div>
 			</span>
 			<span id="artist_categories" style="display:none;">
-				<div class="back" onclick="hideDivs(); showDiv('original');"> Back</div>
+				<div class="back" onclick="hideDivs(); showDiv('original');pause_audio();"> Back</div>
 				<div onclick="handler.load('biography');">Biography</div>
 				<div onclick="handler.load('career');">Career</div></span>
 			</span>
 			<span id="piece_categories" style="display:none;">
-				<div class="back" onclick="hideDivs(); showDiv('original');">Back</div>
+				<div class="back" onclick="hideDivs(); showDiv('original'); pause_audio();">Back</div>
 				<div onclick="handler.load('style');">Style</div>
 				<div onclick="handler.load('medium');">Medium</div>
 			</span>
