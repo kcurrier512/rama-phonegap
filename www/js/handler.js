@@ -43,7 +43,7 @@ function play_audio(ifPlayed, url)
 	my_media.play();
 	played = ifPlayed;
 
-    /*var getDur = setTimeout(function() {
+    var getDur = setTimeout(function() {
 
 		var duration = my_media.getDuration();	
 		if (duration <= 0) //error so exit
@@ -85,7 +85,7 @@ function play_audio(ifPlayed, url)
 			
 		}, (1000*duration)-1000);
   
-    }, 2750);	*/
+    }, 2750);	
 }
 
 
@@ -160,6 +160,11 @@ load: function(result)
 							new_name = name.replace(" ", "");
 							document.getElementById("current_painting").src = piece.picture;
 							document.getElementById("current_title").innerHTML = toTitleCase(name);
+							if(document.URL.charAt(37).toUpperCase() + document.URL.slice(38) != "Painting"){
+								document.getElementById("page-title").innerHTML = document.URL.charAt(37).toUpperCase() + document.URL.slice(38);	    		
+	    						}else{
+	    						document.getElementById("page-title").innerHTML = document.getElementById("current_title").innerHTML;
+	    						}
 							//change div back to original_categories
 							hideDivs();
 							showDiv("original");
