@@ -60,7 +60,7 @@ function play_audio(ifPlayed, url)
 	my_media.play();
 	played = ifPlayed;
 
-    /*var getDur = setTimeout(function() {
+    var getDur = setTimeout(function() {
 
 		var duration = my_media.getDuration();	
 		if (duration <= 0) //error so exit
@@ -102,7 +102,7 @@ function play_audio(ifPlayed, url)
 			
 		}, (1000*duration)-1000);
   
-    }, 2750);	*/
+    }, 2750);	
 }
 
 
