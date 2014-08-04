@@ -1,4 +1,5 @@
 
+var howManySorry = 0;
 var played = false;
 
 var continue_playing = true;
@@ -6,6 +7,22 @@ var continue_playing = true;
 var my_media = null;
 var duration = 0;
 
+
+var current_piece = new piece();
+var serverURL = "http://leiner.cs-i.brandeis.edu:9000";
+
+
+
+function TextInArray(array, text)
+{
+	for (var i=0; i<array.length; i++)
+	{
+		if (array[i].indexOf(text) > -1)
+			return true;
+	}
+	
+	return false;
+}
 
 function info(){
 	if (window.location.hash == "#welcome"){
@@ -130,12 +147,23 @@ function piece() {
     this.piece_details = {audio_on_load:"", medium:"", style:""}; 
 }
 
-var current_piece = new piece();
-
 
 
 var handler = {
 
+
+record: function(result) 
+{
+	$.ajax({
+        type: "POST",
+        url: serverURL + "/responses",
+        data: JSON.stringify(result),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    }).done(function(items) {
+		//do anything here?
+    });
+},
 
 setContinuePlaying:  function(boolvalue)
 {
@@ -150,9 +178,14 @@ setContinuePlaying:  function(boolvalue)
 
 load: function(result)
 {
+			biography = ["biography", "life", "lifetime", "lifespan", "birth", "death", "born", "died"];
+			career = ["career", "currier", "work", "worked", "professional"];
+			style = ["style", "genre", "approach", "mode", "method", "methodology"];
+			medium = ["made of", "medium", "material", "materials"];
+		
+			
 			continue_playing = true;
             var pieces = [];
-            serverURL = "http://leiner.cs-i.brandeis.edu:9000";
             //load database pieces into variable pieces
     		$.ajax({
         		type: "GET",
@@ -201,10 +234,10 @@ load: function(result)
 					for (prop in current_piece.artist_details) {
 						if (result.search(prop) > -1)
 						{							
-							if (result.match(prop) == "biography"){
+							if (TextInArray(biography, result)==true) {
 								play_audio(true, current_piece.artist_details.biography);
 							}
-							else if (result.match(prop) == "career") {
+							else if (TextInArray(career, result)==true) {
 								play_audio(true, current_piece.artist_details.career);
 							}
 						}
@@ -213,16 +246,25 @@ load: function(result)
 					for (prop in current_piece.piece_details) {
 						if (result.search(prop) > -1)
 						{
-							if (result.match(prop) == "style"){
+							if (TextInArray(style, result)==true){
 								play_audio(true, current_piece.piece_details.style);
 							}
-							else if (result.match(prop) == "medium") {
+							else if (TextInArray(medium, result)==true){
 								play_audio(true, current_piece.piece_details.medium);
 							}						
 						}
 					}
 				if(!played && result.indexOf("~") > -1){
-					play_audio(true, "https://s3.amazonaws.com/RamaAudio/sorry.wav");
+					howManySorry  += 1;
+					if (howManySorry <= 2)
+					{
+						play_audio(true, "https://s3.amazonaws.com/RamaAudio/sorry.wav");
+					}
+					else
+					{
+						info();
+					}
+			
 				}
 				played = false;
 			});					

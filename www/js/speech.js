@@ -22,9 +22,13 @@ recognize: function(){
 };
 
 function redirect(result){
-	handler.setContinuePlaying(true);  //needs to reset it here
 	
-    result = result.toLowerCase();
+	result = result.toLowerCase();
+
+	handler.setContinuePlaying(true);  //needs to reset it here
+	//before doing anything, record the response in the responses database
+	handler.record(result);
+	
     if((result.indexOf("blue white") > -1) || (result.indexOf("kelly") > -1) || (result.indexOf("blue/white") > -1)){
         handler.load('blue white');
         roseApp.showView('Painting');
