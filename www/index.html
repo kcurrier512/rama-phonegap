@@ -349,6 +349,10 @@ $(window).bind("load", function() {
 <script src='js/swipe.js'></script>
 <script>
 
+function toTitleCase(str){
+	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+ 	}
+	getURL();
 // pure JS
 var elem = document.getElementById('mySwipe');
 window.mySwipe = Swipe(elem, {

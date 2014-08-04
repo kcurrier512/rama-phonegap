@@ -207,6 +207,11 @@ load: function(result)
 							new_name = name.replace(" ", "");
 							document.getElementById("current_painting").src = piece.picture;
 							document.getElementById("current_title").innerHTML = toTitleCase(name);
+							if(document.URL.charAt(37).toUpperCase() + document.URL.slice(38) != "Painting"){
+								document.getElementById("page-title").innerHTML = document.URL.charAt(37).toUpperCase() + document.URL.slice(38);	    		
+	    						}else{
+	    						document.getElementById("page-title").innerHTML = document.getElementById("current_title").innerHTML;
+	    						}
 							//change div back to original_categories
 							hideDivs();
 							showDiv("original");
